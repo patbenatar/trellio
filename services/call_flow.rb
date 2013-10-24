@@ -20,5 +20,11 @@ module CallFlow
         )
       end.text
     end
+
+    def hang_up
+      Twilio::TwiML::Response.new do |r|
+        r.Hangup
+      end.text
+    end
   end
 end

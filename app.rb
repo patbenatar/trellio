@@ -30,6 +30,8 @@ post "/forward" do
 
   if params["DialCallStatus"] == "no-answer"
     CallFlow.record_voicemail Message.create
+  else
+    CallFlow.hang_up
   end
 end
 
