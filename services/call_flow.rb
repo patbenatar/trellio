@@ -11,7 +11,6 @@ module CallFlow
     def record_voicemail(message)
       Twilio::TwiML::Response.new do |r|
         r.Play ENV["MESSAGE_URL"]
-        r.Say "Please record your message after the beep."
         r.Pause
         r.Record(
           action: "/messages/#{message.id}/recorded",
