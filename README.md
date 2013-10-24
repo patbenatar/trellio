@@ -1,7 +1,7 @@
 # Trellio
 
-Trellio is a simple Sinatra app that hooks up Twilio with Trello to create cards
-on a Trello board for voicemails.
+Trellio is a simple Sinatra app that hooks up Twilio with Trello to record and
+transcribe voicemails to cards on a Trello board.
 
 ## Features
 
