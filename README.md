@@ -42,6 +42,12 @@ Settings are managed via environment variables:
 
 1. Setup the "Voice Request URL" for your number to send a `POST` to "/incoming"
 
+### Run the app
+
+```bash
+$ ruby app.rb
+```
+
 ## Known Issues
 
 * For very short messages that are transcribed quickly, we can end up with two
