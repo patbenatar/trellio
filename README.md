@@ -57,3 +57,6 @@ $ ruby app.rb
 ## Sponsor
 
 [![philosophie](http://patbenatar.github.io/showoff/images/philosophie.png)](http://gophilosophie.com)
+
+This app was developed during my open source time at philosophie and currently
+powers our company voicemail.
