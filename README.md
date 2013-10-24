@@ -35,8 +35,7 @@ Settings are managed via environment variables:
 1. Get a Trello developer key here: https://trello.com/1/appKey/generate
 1. Set that as ENV var `TRELLO_DEVELOPER_PUBLIC_KEY`
 1. Run the Sinatra app: `$ ruby app.rb`
-1. Navigate to http://localhost:4567/authorize_trello and follow the
-   instructions there
+1. Navigate to "/authorize_trello" and follow the instructions there
 
 ### Twilio Integration
 
