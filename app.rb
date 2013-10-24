@@ -16,6 +16,10 @@ configure do
   end
 end
 
+configure :production do
+  MongoMapper.setup({ "production" => { "uri" => ENV["MONGOLAB_URI"] } }, "production")
+end
+
 post "/incoming" do
   content_type "text/xml"
   CallFlow.forward
