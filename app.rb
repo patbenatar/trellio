@@ -53,3 +53,5 @@ get "/authorize_trello" do
   and set the token provided to `TRELLO_MEMBER_TOKEN` environment variable.
   STRING
 end
+
+get "/ping" do; end # To keep Heroku Dyno awake
