@@ -48,3 +48,7 @@ Settings are managed via environment variables:
   cards in Trello: one for the recording and another for the transcription. Need
   to use some form of blocking queue for each Message to prevent this race
   condition.
+
+## Sponsor
+
+[![philosophie](http://patbenatar.github.io/showoff/images/philosophie.png)](http://gophilosophie.com)
