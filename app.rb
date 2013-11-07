@@ -29,7 +29,7 @@ post "/forward" do
   content_type "text/xml"
 
   if params["DialCallStatus"] == "no-answer"
-    CallFlow.record_voicemail Message.create
+    CallFlow.record_voicemail Message.create(from: params["From"])
   else
     CallFlow.hang_up
   end

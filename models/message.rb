@@ -12,7 +12,7 @@ class Message
       Trello::Card.find(card_id)
     else
       Trello::Card.create(
-        name: "Voicemail: #{Time.now.strftime("%-d/%-m/%Y at %-l:%M %P")}",
+        name: "Voicemail from #{from} on #{Time.now.strftime("%-d/%-m/%Y at %-l:%M %P")}",
         list_id: TrelloHelper.default_list.id,
       ).tap { |c| update_attribute :trello_card_id, c.id }
     end
