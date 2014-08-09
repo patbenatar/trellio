@@ -47,6 +47,7 @@ GEM
       json
       oauth (~> 0.4.5)
       rest-client (~> 1.6.7)
+    sass (3.3.14)
     sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -76,6 +77,7 @@ DEPENDENCIES
   mongo_mapper
   pry
   ruby-trello
+  sass (~> 3.3.14)
   sinatra
   sinatra-reloader
   twilio-ruby

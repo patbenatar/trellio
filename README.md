@@ -8,6 +8,11 @@ transcribe voicemails to cards on a Trello board.
 * Posts voicemail recording to Trello card
 * Posts voicemail transcription to Trello card
 * Play a custom voicemail message
+* Blacklist that directs unwanted calls straight to voicemail
+
+## Blacklist
+
+To access the blacklist, navigate to `http://YOURSERVER/blacklists` in the browser.
 
 ## Dependencies
 
@@ -16,6 +21,7 @@ transcribe voicemails to cards on a Trello board.
 ## Setup
 
 ```bash
+$ brew install mongodb
 $ bundle
 ```
 

@@ -3,6 +3,7 @@ Bundler.require
 require "securerandom"
 
 require "./models/message"
+require "./models/blacklist"
 require "./services/call_flow"
 
 register Sinatra::Reloader
@@ -22,7 +23,14 @@ end
 
 post "/incoming" do
   content_type "text/xml"
-  CallFlow.forward
+
+  blacklist = Blacklist.find_by_phone_number(params["From"])
+
+  if blacklist.nil?
+    CallFlow.forward
+  else
+    CallFlow.record_voicemail Message.create(from: params["From"])
+  end
 end
 
 post "/forward" do
@@ -55,3 +63,43 @@ get "/authorize_trello" do
 end
 
 get "/ping" do; end # To keep Heroku Dyno awake
+
+get "/blacklists/?" do
+  @blacklists = Blacklist.all
+  @title = "Trellio Blacklist"
+  erb :blacklist
+end
+
+get "/blacklists/new" do
+  @blacklist = Blacklist.new
+  @title = "Add New Number"
+  erb :new
+end
+
+post "/blacklists" do
+  blacklist = Blacklist.create(params[:blacklist])
+  redirect to ("/blacklists")
+end
+
+get "/blacklists/:id/edit" do
+  @blacklist = Blacklist.find(params[:id])
+  @title = "Edit Number"
+  erb :edit
+end
+
+put "/blacklists/:id" do
+  blacklist = Blacklist.find(params[:id])
+  blacklist.update_attributes(params[:blacklist])
+  redirect to ("/blacklists")
+end
+
+get "/blacklists/delete/:id" do
+  @blacklist = Blacklist.find(params[:id])
+  @title = "Delete Number"
+  erb :delete
+end
+
+delete "/blacklists/:id" do
+  Blacklist.find(params[:id]).destroy
+  redirect to ("/blacklists")
+end
