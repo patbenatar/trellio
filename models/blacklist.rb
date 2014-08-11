@@ -1,7 +1,7 @@
 class Blacklist
   include MongoMapper::Document
 
-  key :phone_number,  String, :required => true
+  key :phone_number,  String, required: true
   key :caller_name,   String
   timestamps!
 

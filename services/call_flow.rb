@@ -2,7 +2,7 @@ module CallFlow
   class << self
     def record_voicemail(message)
       Twilio::TwiML::Response.new do |r|
-        r.Say "Thank you for calling philosophy. Please leave your name, phone number, and message after the tone.", :voice => "woman"
+        r.Play ENV["MESSAGE_URL"]
         r.Pause
         r.Record(
           action: "/messages/#{message.id}/recorded",
