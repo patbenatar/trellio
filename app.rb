@@ -3,6 +3,7 @@ Bundler.require
 require "securerandom"
 
 require "./models/message"
+require "./models/blacklist"
 require "./services/call_flow"
 
 register Sinatra::Reloader
@@ -22,7 +23,12 @@ end
 
 post "/incoming" do
   content_type "text/xml"
-  CallFlow.forward
+
+  if Blacklist.find_by_phone_number(params["From"])
+    CallFlow.record_voicemail Message.create(from: params["From"])
+  else
+    CallFlow.forward
+  end
 end
 
 post "/forward" do
@@ -55,3 +61,60 @@ get "/authorize_trello" do
 end
 
 get "/ping" do; end # To keep Heroku Dyno awake
+
+helpers do
+  def protected!
+    return if authorized?
+    headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
+    halt 401, "Not authorized\n"
+  end
+
+  def authorized?
+    @auth ||=  Rack::Auth::Basic::Request.new(request.env)
+    @auth.provided? and @auth.basic? and @auth.credentials and @auth.credentials == [ENV["USERNAME"], ENV["PASSWORD"]]
+  end
+end
+
+get "/blacklists/?" do
+  protected!
+  @blacklists = Blacklist.all
+  @title = "Trellio Blacklist"
+  erb :blacklist
+end
+
+get "/blacklists/new" do
+  protected!
+  @blacklist = Blacklist.new
+  @title = "Add New Number"
+  erb :new
+end
+
+post "/blacklists" do
+  blacklist = Blacklist.create(params[:blacklist])
+  redirect to("/blacklists")
+end
+
+get "/blacklists/:id/edit" do
+  protected!
+  @blacklist = Blacklist.find(params[:id])
+  @title = "Edit Number"
+  erb :edit
+end
+
+put "/blacklists/:id" do
+  blacklist = Blacklist.find(params[:id])
+  blacklist.update_attributes(params[:blacklist])
+  redirect to("/blacklists")
+end
+
+get "/blacklists/delete/:id" do
+  protected!
+  @blacklist = Blacklist.find(params[:id])
+  @title = "Delete Number"
+  erb :delete
+end
+
+delete "/blacklists/:id" do
+  Blacklist.find(params[:id]).destroy
+  redirect to("/blacklists")
+end

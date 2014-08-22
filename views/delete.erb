@@ -1,0 +1,5 @@
+<p>Are you sure you want to delete <strong><%= @blacklist.phone_number %></strong>?</p>
+<form action="/blacklists/<%= @blacklist.id %>" method="POST">
+  <input type="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Delete" class="button"><a href="/blacklists" class="button">Cancel</a>
+</form>

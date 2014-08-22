@@ -1,0 +1,12 @@
+<h3>Please add the phone number that you wish to never speak to ever again here. Any incoming call from this list will go straight to voicemail. Enjoy your peace and tranquility.</h3>
+<a href="/blacklists/new" class="button">Add New Number</a>
+<hr>
+
+<% @blacklists.each do |number| %>
+<div class="phone">
+  <h2><%= number.phone_number %></h2>
+  <p><span class="phone-label">Caller Name:</span> <%= number.caller_name %></p>
+  <p><span class="phone-label">Created at:</span> <%= number.created_at %></p>
+  <a href="/blacklists/<%= number.id %>/edit" class="button">Edit</a><a href="/blacklists/delete/<%= number.id %>" class="button">Delete</a>
+</div>
+<% end %>
