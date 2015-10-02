@@ -15,6 +15,13 @@ configure do
     config.developer_public_key = ENV["TRELLO_DEVELOPER_PUBLIC_KEY"]
     config.member_token = ENV["TRELLO_MEMBER_TOKEN"]
   end
+
+  if ENV['AIRBRAKE_API_KEY']
+    Airbrake.configure do |config|
+      config.api_key = ENV['AIRBRAKE_API_KEY']
+    end
+    use Airbrake::Sinatra
+  end
 end
 
 configure :production do
