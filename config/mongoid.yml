@@ -7,5 +7,4 @@ development:
 production:
   clients:
     default:
-      database: trellio
       uri: <%= ENV['MONGOLAB_URI'] %>
