@@ -1,9 +1,12 @@
 class Blacklist
-  include MongoMapper::Document
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  include Mongoid::Attributes::Dynamic
 
-  key :phone_number,  String, required: true
-  key :caller_name,   String
-  timestamps!
+  field :phone_number, type: String
+  field :caller_name, type: String
+
+  validates :phone_number, presence: true
 
   attr_accessor :phone_number, :caller_name
 end

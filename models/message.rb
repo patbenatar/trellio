@@ -1,11 +1,12 @@
 require "./util/trello_helper"
 
 class Message
-  include MongoMapper::Document
+  include Mongoid::Document
+  include Mongoid::Attributes::Dynamic
 
-  key :trello_card_id, String
-  key :recording_url, String
-  key :transcription, String
+  field :trello_card_id, type: String
+  field :recording_url, type: String
+  field :transcription, type: String
 
   def trello_card
     @trello_card ||= if card_id = trello_card_id

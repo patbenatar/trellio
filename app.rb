@@ -9,7 +9,7 @@ require "./services/call_flow"
 register Sinatra::Reloader
 
 configure do
-  MongoMapper.database = "trellio"
+  Mongoid.load!('config/mongoid.yml')
 
   Trello.configure do |config|
     config.developer_public_key = ENV["TRELLO_DEVELOPER_PUBLIC_KEY"]
@@ -24,14 +24,10 @@ configure do
   end
 end
 
-configure :production do
-  MongoMapper.setup({ "production" => { "uri" => ENV["MONGOLAB_URI"] } }, "production")
-end
-
 post "/incoming" do
   content_type "text/xml"
 
-  if Blacklist.find_by_phone_number(params["From"])
+  if Blacklist.where(phone_number: params["From"]).exists?
     CallFlow.record_voicemail Message.create(from: params["From"])
   else
     CallFlow.forward

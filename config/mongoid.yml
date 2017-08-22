@@ -1,0 +1,11 @@
+development:
+  clients:
+    default:
+      database: trellio
+      hosts:
+        - localhost:27017
+production:
+  clients:
+    default:
+      database: trellio
+      uri: <%= ENV['MONGOLAB_URI'] %>
